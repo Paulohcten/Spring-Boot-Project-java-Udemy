@@ -1,11 +1,10 @@
 package com.educandoweb.springbootproject.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Category implements Serializable {
@@ -15,6 +14,9 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String Name;
+
+    @Transient
+    private Set<Product> products = new HashSet<>();
 
     public Category(){
     }
@@ -38,6 +40,10 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
