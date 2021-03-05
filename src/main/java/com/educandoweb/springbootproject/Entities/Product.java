@@ -18,7 +18,7 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @Transient
+    @ManyToMany
     private Set<Category> categories = new HashSet<>();
 
     public Product (){
