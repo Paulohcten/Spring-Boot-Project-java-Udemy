@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Orders implements Serializable {
@@ -22,6 +24,9 @@ public class Orders implements Serializable {
 
     @ManyToOne
     private User client;
+
+    @OneToMany(mappedBy = "id.orders")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Orders(){
     }
@@ -65,6 +70,10 @@ public class Orders implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Set<OrderItem> getItems(){
+        return items;
     }
 
     @Override
