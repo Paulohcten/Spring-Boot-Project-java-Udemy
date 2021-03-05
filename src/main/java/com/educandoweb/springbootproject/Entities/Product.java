@@ -1,5 +1,7 @@
 package com.educandoweb.springbootproject.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -20,6 +22,9 @@ public class Product implements Serializable {
 
     @ManyToMany
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product (){
     }
@@ -74,6 +79,15 @@ public class Product implements Serializable {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    @JsonIgnore
+    public Set<Orders> getOrders(){
+        Set<Orders> set = new HashSet<>();
+        for (OrderItem x : items){
+            set.add(x.getOrders());
+        }
+        return set;
     }
 
     @Override
